@@ -1,11 +1,11 @@
 package com.bridgelabz;
 
 public class StacksAndQueues {
-    static com.bridgelabz.StacksAndQueues.Node head;
+    static Node head;
 
     static class Node {
         int data;
-        com.bridgelabz.StacksAndQueues.Node next;
+        Node next;
 
         Node(int data) {
             this.data = data;
@@ -20,7 +20,7 @@ public class StacksAndQueues {
         }
 
         public static void push(int data) {
-            com.bridgelabz.StacksAndQueues.Node newNode = new com.bridgelabz.StacksAndQueues.Node(data);
+            Node newNode = new Node(data);
             if (isEmpty()) {
                 head = newNode;
                 return;
@@ -29,23 +29,33 @@ public class StacksAndQueues {
             head = newNode;
         }
 
-        public static void display() {
-            com.bridgelabz.StacksAndQueues.Node current = head;
-            if (head == null) {
-                System.out.println("List is empty");
+        public static int pop() {
+
+            if (isEmpty()) {
+                return -1;
             }
-            while (current != null) {
-                System.out.println(current.data + " ");
-                current = current.next;
+            int top = head.data;
+            head = head.next;
+            return top;
+        }
+
+        public static int peek() {
+            if (isEmpty()) {
+                return -1;
             }
+            return head.data;
         }
     }
 
     public static void main(String[] args) {
-        com.bridgelabz.StacksAndQueues.Stack s = new com.bridgelabz.StacksAndQueues.Stack();
+
+        Stack s = new Stack();
         s.push(70);
         s.push(30);
         s.push(56);
-        s.display();
+        while (!s.isEmpty()) {
+            System.out.println(s.peek());
+            s.pop();
+        }
     }
 }
