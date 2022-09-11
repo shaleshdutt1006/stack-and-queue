@@ -1,61 +1,49 @@
 package com.bridgelabz;
 
-public class StacksAndQueues {
-    static Node head;
-
-    static class Node {
-        int data;
+public class StacksAndQueues<T> {
+    static class Node<T> {
+        T data;
         Node next;
 
-        Node(int data) {
+        Node(T data) {
             this.data = data;
             this.next = null;
         }
     }
 
-    static class Stack {
-        public static boolean isEmpty() {
+    static class Queue<T> {
+        static Node front = null;
+        static Node rear = null;
 
-            return head == null;
+        public static boolean isEmpty() {
+            return front == null && rear == null;
         }
 
-        public static void push(int data) {
-            Node newNode = new Node(data);
-            if (isEmpty()) {
-                head = newNode;
+        public void queue(T data) {
+            Node<T> newNode = new <T>Node(data);
+            if (front == null) {                 //empty queue
+                rear = front = newNode;         // front and rear are at same point at the same node
                 return;
             }
-            newNode.next = head;
-            head = newNode;
+            rear.next = newNode;
+            rear = newNode;
         }
 
-        public static int pop() {
-
-            if (isEmpty()) {
-                return -1;
+        public void disp() {
+            Node temp = front;
+            while (temp != null) {
+                System.out.print(temp.data + " ");
+                temp = temp.next;
             }
-            int top = head.data;
-            head = head.next;
-            return top;
         }
 
-        public static int peek() {
-            if (isEmpty()) {
-                return -1;
-            }
-            return head.data;
-        }
-    }
+        public static void main(String[] args) {
+            Queue q = new Queue();
+            q.queue(56);
+            q.queue(30);
+            q.queue(70);
+            q.disp();
 
-    public static void main(String[] args) {
-
-        Stack s = new Stack();
-        s.push(70);
-        s.push(30);
-        s.push(56);
-        while (!s.isEmpty()) {
-            System.out.println(s.peek());
-            s.pop();
         }
     }
 }
